@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NNRS HEALTHCARE</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('https://img.freepik.com/free-vector/health-wellness-background-beige-with-women-stretching-illustration_53876-117375.jpg') no-repeat center center fixed;
+            background-size: cover;
+            background-color: #f0f0f0;
+        }
+
+        header {
+            color: #4b5320;
+            text-align: center;
+            font-family: 'Lucida Handwriting', 'cursive';
+            padding: 20px;
+            
+        }
+
+        h1 {
+            font-size: 36px;
+            margin: 0;
+            
+        }
+
+        h4 {
+            font-size: 20px;
+            margin: 0;
+            animation: blink 1s infinite; /* Blinking animation */
+        }
+
+        h2 {
+            font-size: 24px;
+            margin: 10px 0;
+            
+            
+        }
+
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #333;
+            /* Text color */
+            margin: 20px;
+            /* Add margin for better spacing */
+            text-align: justify;
+            /* Justify the text */
+        }
+
+        nav {
+            background: none;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #2c3e50;
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        nav a.selected {
+            background-color: #3498db;
+            /* Set the background color for the selected option */
+            color: #fff;
+            /* Set the text color for the selected option */
+        }
+
+        section {
+            padding: 20px;
+            display: none;
+        }
+
+        #tracker {
+            display: block;
+        }
+
+        #liveInteractionChat {
+            overflow-y: scroll;
+            max-height: 50px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            background-color: #fff;
+
+        }
+
+        #userInput {
+            margin-top: 10px;
+        }
+
+        #bmiCalculator form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #bmiCalculator .keypad {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-gap: 5px;
+            margin-top: 10px;
+        }
+
+        #bmiCalculator .key {
+            padding: 10px;
+            background-color: #2c3e50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 5px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        /* Additional styles for the video container */
+        #videoContainer {
+            display: none;
+        }
+
+        #videoContainer iframe {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Style for BMI Calculator image */
+        #bmiImage {
+            display: block;
+            margin: 0 auto;
+            max-width: 45%;
+            height: auto;
+            margin-top: 20px;
+        }
+
+
+        
+
+        
+        @keyframes blink {
+            0% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>NNRS HEALTHCARE</h1>
+        <h4>Comfort Space for Women</h4>
+    </header>
+    <p>'NNRS Healthcare is a dedicated health platform that places a primary focus on promoting the well-being and care of women, particularly in remote areas where access to urban healthcare facilities is limited. Recognizing the global reach of the internet, our platform leverages this ubiquitous communication tool to bridge the gap and ensure that essential health information and services are readily accessible to women in even the most remote regions.'</p>
+    <nav>
+        <a href="#" onclick="showContent('bmiCalculator'); selectNavItem(this);">BMI Calculator</a>
+        <a href="#" onclick="showContent('pregnancy and postpartum care'); selectNavItem(this);">Pregnancy and Postpartum Care</a>
+        <a href="#" onclick="showContent('liveInteraction'); selectNavItem(this);">Live Interaction</a>
+        <a href="#" onclick="showContent('tracker'); selectNavItem(this);">Menstrual Tracker</a>
+        <a href="#" onclick="showContent('healthTips'); selectNavItem(this);">Menstrual Health Tips</a>
+    </nav>
+
+    <section id="bmiCalculator">
+        <h2 style="color: #2c3e50;">BMI Calculator</h2>
+        <form id="bmiForm" onsubmit="calculateBMI(); return false;">
+            <label for="weight">Weight (kg):</label>
+            <input type="number" id="weight" required>
+            <label for="height">Height (cm):</label>
+            <input type="number" id="height" required>
+            <label for="age">Age:</label>
+            <input type="number" id="age" required>
+            <label for="keypad">Use Keypad:</label>
+            <div class="keypad">
+                <button class="key" onclick="appendToInput('1')">1</button>
+                <button class="key" onclick="appendToInput('2')">2</button>
+                <button class="key" onclick="appendToInput('3')">3</button>
+                <button class="key" onclick="appendToInput('4')">4</button>
+                <button class="key" onclick="appendToInput('5')">5</button>
+                <button class="key" onclick="appendToInput('6')">6</button>
+                <button class="key" onclick="appendToInput('7')">7</button>
+                <button class="key" onclick="appendToInput('8')">8</button>
+                <button class="key" onclick="appendToInput('9')">9</button>
+                <button class="key" onclick="appendToInput('0')">0</button>
+            </div>
+            <input type="submit" value="Calculate BMI">
+        </form>
+        <img id="bmiImage" src="https://www.tataaia.com/content/dam/tataaialifeinsurancecompanylimited/calculator/life-planning-tools/bmi-calculator/banner-image-bmi.png" alt="BMI Calculator Image">
+        <p id="bmiResult"></p>
+    </section>
+
+    <section id="pregnancy and postpartum care">
+        <h2 style="color: #000000;">Pregnancy and Postpartum Care</h2>
+        <p>Some pregnancy and postpartum cares:</p>
+        <ul>
+            <h3>Pregnancy Care</h3>
+            <li>Prenatal Checkups</li>
+            <li>Eat a balanced diet rich in iron and vitamins.</li>
+            <li>Get enough rest and sleep.</li>
+            <li>Manage stress through relaxation techniques.</li>
+            <li>Should have proper exercise</li>
+
+            <h3>Postpartum Care</h3>
+            <li>Postpartum Checkups</li>
+            <li>Emotional Well-Being</li>
+            <li>Pelvic floor exercises</li>
+            <li>Monitoring and managing complications</li>
+            <li>Contraception counseling</li>
+        </ul>
+    </section>
+
+    <section id="liveInteraction">
+        <h2 style="color: #000000;">Live Interaction</h2>
+        <div id="liveInteractionChat"></div>
+        <input type="text" id="userInput" placeholder="Type your message..." onkeydown="sendMessage(event)">
+    </section>
+
+      <section id="tracker">
+        <h2 style="color: #000000;">Menstrual Tracker</h2>
+        <form id="menstrualTrackerForm" onsubmit="trackMenstrualCycle(); return false;">
+            <label for="lastPeriod">Last Menstrual Period:</label>
+            <input type="date" id="lastPeriod" required>
+            <br>
+            <label for="cycleLength">Average Cycle Length (days):</label>
+            <input type="number" id="cycleLength" required>
+            <br>
+            <input type="submit" value="Track Cycle">
+        </form>
+        <p id="trackerResult"></p>
+
+        <!-- Calendar for next expected periods -->
+        <div id="calendar"></div>
+    </section>
+
+    <section id="healthTips">
+        <h2 style="color: #000000;">Menstrual Health Tips</h2>
+        <p>During your menstrual period, it's essential to:</p>
+        <ul>
+            <li>Stay hydrated by drinking plenty of water.</li>
+            <li>Eat a balanced diet rich in iron and vitamins.</li>
+            <li>Get enough rest and sleep.</li>
+            <li>Manage stress through relaxation techniques.</li>
+            <li>"https://youtu.be/xK4EgijWchU?si=kUtJP2yyA-xT_T4A"</li>
+        </ul>
+
+        <!-- Add YouTube video iframe and play button -->
+        <div>
+            <button onclick="playYouTubeVideo()">Play Video</button>
+            <div id="videoContainer">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/xK4EgijWchU?si=Dl1toVTSrlJP5GQ9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        &copy; 2024 NNRS HEALTHCARE
+    </footer>
+
+    <div class="container">
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <h2>Contact Information</h2>
+        <p class="contact-info">
+            Phone: 9745152158<br>
+            Email: <a href="mailto:nandanar0002@gmail.com">nandanar0002@gmail.com</a><br>
+            GitHub: <a href="https://github.com/Nandanar06">Nandanar06</a><br>
+            Instagram: <a href="https://www.instagram.com/nandanar06/">@nandanar06</a>
+        </p>
+    </div>
+
+    <script>
+        function showContent(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('section').forEach(section => {
+                section.style.display = 'none';
+            });
+
+            // Show the selected section
+            document.getElementById(sectionId).style.display = 'block';
+        }
+
+        function calculateBMI() {
+            var weight = document.getElementById('weight').value;
+            var height = document.getElementById('height').value;
+            var age = document.getElementById('age').value;
+
+            var bmi = (weight / ((height / 100) ** 2)).toFixed(2);
+            document.getElementById('bmiResult').innerHTML = `Your BMI is: ${bmi}<br>Age: ${age} years`;
+        }
+
+        function sendMessage(event) {
+            if (event.key === 'Enter') {
+                var userInput = document.getElementById('userInput').value;
+                appendMessage('You: ' + userInput, 'user');
+
+                // Simulate a simple chatbot response
+                var botResponse = generateBotResponse(userInput);
+                appendMessage('Chatbot: ' + botResponse, 'bot');
+
+                document.getElementById('userInput').value = '';
+            }
+        }
+
+        function trackMenstrualCycle() {
+            var lastPeriodDate = new Date(document.getElementById('lastPeriod').value);
+            var cycleLength = parseInt(document.getElementById('cycleLength').value);
+
+            // Calculate next expected period date
+            var nextPeriodDate = new Date(lastPeriodDate.getTime() + (cycleLength * 24 * 60 * 60 * 1000));
+
+            document.getElementById('trackerResult').innerHTML = 'Your next expected period date is: ' + nextPeriodDate.toDateString();
+
+        
+        }
+
+        
+
+        function generateBotResponse(userInput) {
+            // This is a simple example; you can enhance it with more sophisticated logic
+            return "Thank you for your message!";
+        }
+
+        function appendMessage(message, sender) {
+            var chatContainer = document.getElementById('liveInteractionChat');
+            var messageElement = document.createElement('div');
+            messageElement.className = sender === 'user' ? 'userMessage' : 'botMessage';
+            messageElement.textContent = message;
+            chatContainer.appendChild(messageElement);
+
+            // Scroll to the bottom of the chat container
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        function appendToInput(value) {
+            document.getElementById('weight').value += value;
+        }
+
+        function selectNavItem(element) {
+            // Remove 'selected' class from all navigation items
+            document.querySelectorAll('nav a').forEach(item => {
+                item.classList.remove('selected');
+            });
+
+            // Add 'selected' class to the clicked navigation item
+            element.classList.add('selected');
+        }
+
+        // Function to play the YouTube video
+        function playYouTubeVideo() {
+            var videoContainer = document.getElementById('videoContainer');
+            var playButton = document.querySelector('#healthTips button');
+
+            // Toggle the video container's display
+            if (videoContainer.style.display === 'block') {
+                videoContainer.style.display = 'none';
+                playButton.innerText = 'Play Video';
+            } else {
+                videoContainer.style.display = 'block';
+                playButton.innerText = 'Pause Video';
+            }
+        }
+    </script>
+
+</body>
+
+</html>
